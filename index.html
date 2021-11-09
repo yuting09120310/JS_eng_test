@@ -217,6 +217,26 @@
     </div>
 
     <script>
+        class alert2{
+          no() {
+            Swal.fire({
+              icon: 'error',
+              title: '答錯了',
+              text: '請仔細想想...',
+            })
+          };
+          yes(){
+              Swal.fire({
+              position: 'center-center',
+              icon: 'success',
+              title: '答對了',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        }
+        const pop = new alert2();
+
         var i = 0;
         
         $("#btn").click(x => {
@@ -249,7 +269,6 @@
             }
         }
 
-
         function temp(questions){
           var question = document.getElementById("question")
           question.innerHTML = `
@@ -277,25 +296,7 @@
         }
 
 
-        class alert2{
-          no() {
-            Swal.fire({
-              icon: 'error',
-              title: '答錯了',
-              text: '請仔細想想...',
-            })
-          };
-          yes(){
-              Swal.fire({
-              position: 'center-center',
-              icon: 'success',
-              title: '答對了',
-              showConfirmButton: false,
-              timer: 1500
-            })
-          }
-        }
-        const pop = new alert2();
+        
     </script>
 
   </body>
