@@ -184,7 +184,7 @@
     <div class="testbox">
       <form action="/">
         <H1>英文小測驗</H1>
-        <div class="item">
+        <div id="item">
           <label for="name">名字<span>*</span></label>
           <input id="name" type="text" name="name" placeholder="請填入姓名" required/>
         </div>
@@ -216,24 +216,60 @@
     </div>
 
     <script>
+        var i = 0;
         $("#btn").click(x => {
             if($("#name").val() == ""){
                 alert("尚未填入資料")
             }else{
-                // alert($("#name").val() + "ok")
-                if ($('#radio_3').is(":checked"))
+
+              if ($('#radio_3').is(":checked"))
                 {
                     alert("成功");
-                    next()
+                    i++;
+                    next(i);
                 }else{
                     alert("失敗")
                 }
             }
         });
 
-        function next(){
-            let question = document.getElementById("question");
-            question.innerText = "123"
+        function next(i){
+            console.log(i);
+            if(i == 1){
+              document.getElementById("item").innerHTML = "";
+              temp("冬天")
+            }else if(i == 2){
+              temp("夏天")
+            }else{
+              alert(`測驗通過完成! 總分:${i}分`)
+            }
+        }
+
+
+        function temp(questions){
+          var question = document.getElementById("question")
+          question.innerHTML = `
+              <div id="question">
+                <label>${questions}的英文是?</label>
+                <div class="question-answer">
+                  <div>
+                    <input type="radio" value="autumn" id="radio_3" name="race"/>
+                    <label for="radio_3" class="radio"><span>autumn </span></label>
+                  </div>
+                  <div>
+                    <input  type="radio" value="summer" id="radio_4" name="race"/>
+                    <label for="radio_4" class="radio"><span>summer</span></label>
+                  </div>
+                  <div>
+                      <input  type="radio" value="none" id="radio_5" name="race"/>
+                      <label for="radio_5" class="radio"><span>winter</span></label>
+                  </div>
+                  <div>
+                      <input  type="radio" value="none" id="radio_6" name="race"/>
+                      <label for="radio_6" class="radio"><span>spring</span></label>
+                  </div>
+                </div>
+              </div>`;
         }
     </script>
 
