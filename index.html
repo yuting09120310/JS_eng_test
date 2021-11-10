@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js' integrity='sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==' crossorigin='anonymous'></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
       html, body {
       min-height: 100%;
@@ -192,30 +193,16 @@
         <div id="question">
           <label id="quiz"></label>
           <div id="question-answer">
-            <div>
-              <input type="radio" value="autumn" id="radio_3" name="race"/>
-              <label for="radio_3" class="radio"><span>autumn </span></label>
-            </div>
-            <div>
-              <input  type="radio" value="summer" id="radio_4" name="race"/>
-              <label for="radio_4" class="radio"><span>summer</span></label>
-            </div>
-            <div>
-                <input  type="radio" value="none" id="radio_5" name="race"/>
-                <label for="radio_5" class="radio"><span>winter</span></label>
-            </div>
-            <div>
-                <input  type="radio" value="none" id="radio_6" name="race"/>
-                <label for="radio_6" class="radio"><span>spring</span></label>
-            </div>
+
           </div>
         </div>
         <div class="btn-block">
-          <button type="button" id="btn">SUBMIT</button>
+          <button type="button" id="btn">送出</button>
         </div>
       </form>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script>
         class alert2{
           no() {
@@ -236,23 +223,24 @@
           }
         }
         const pop = new alert2();
-
-        let i = 0;
         
+        var stutes = 0
+        let i = 0;
+
         $("#btn").click(x => {
             if($("#name").val() == ""){
                 alert("尚未填入資料")
             }else{
-
-              if ($('#radio_3').is(":checked"))
+              if($('#item_query').length > 0){
+                if ($('#radio_' + i).is(":checked"))
                 {
                     pop.yes();
-                    i++;
-                    temp(i);
                 }else{
-                  
-                  pop.no();
+                    pop.no();
                 }
+              }else{
+                i = temp();
+              }
             }
         });
 
@@ -268,12 +256,13 @@
         //       location.reload();
         //     }
         // }
-
-        function temp(questions){
+        
+        function temp(){
           var question = document.getElementById("question")
           var str='';
-          var arr=[['1','夏天','summer'],['2','春天','spring'],['3','冬天','winter']];
-          var rows4 = arr.map( row => ({ 
+          var arr=[['0','秋天','autumn'],['1','夏天','summer'],['2','春天','spring'],['3','冬天','winter']];
+          var rows4 = arr.map( row => ({
+              num : row[0],
               eng : row[2],
               chinese: row[1]
             }));
@@ -286,11 +275,21 @@
           var answer = document.getElementById("question-answer");
           
           answer.innerHTML="";
-          for(i=0;i <= rows4.length ; i++){
-            answer.innerHTML += `<div><li>${rows4[i].eng}</li></div>`
+          for(i=0;i <= rows4.length -1 ; i++){
+            answer.innerHTML += `
+            <div id="item_query"> 
+              <input type="radio" value="${rows4[i].eng}" id="radio_${i}" name="race"/>
+              <label for="radio_${i}" class="radio"><span>${rows4[i].eng} </span></label>
+            </div>
+            `
           }
+          return rows4[0].num;
         }
+
+
         
+        
+      
           // if ('addEventListener' in window) {
           // 	window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
           // 	document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
