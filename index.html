@@ -190,8 +190,8 @@
           <input id="name" type="text" name="name" placeholder="請填入姓名" required/>
         </div>
         <div id="question">
-          <label>秋天的英文是?</label>
-          <div class="question-answer">
+          <label id="quiz"></label>
+          <div id="question-answer">
             <div>
               <input type="radio" value="autumn" id="radio_3" name="race"/>
               <label for="radio_3" class="radio"><span>autumn </span></label>
@@ -248,7 +248,7 @@
                 {
                     pop.yes();
                     i++;
-                    next(i);
+                    temp(i);
                 }else{
                   
                   pop.no();
@@ -256,58 +256,60 @@
             }
         });
 
-        function next(i){
-            console.log(i);
-            if(i == 1){
-              document.getElementById("item").innerHTML = "";
-              temp("冬天")
-            }else if(i == 2){
-              temp("夏天")
-            }else{
-              alert(`測驗通過完成! 總分:${i}分`)
-              location.reload();
-            }
-        }
+        // function next(i){
+        //     console.log(i);
+        //     if(i == 1){
+        //       document.getElementById("item").innerHTML = "";
+        //       temp("冬天")
+        //     }else if(i == 2){
+        //       temp("夏天")
+        //     }else{
+        //       alert(`測驗通過完成! 總分:${i}分`)
+        //       location.reload();
+        //     }
+        // }
 
         function temp(questions){
           var question = document.getElementById("question")
           var str='';
-          var arr=[];
-          for(x=1;x<= 4;x++){
-              str = Math.round( (Math.random()*3) + 1);
-              //在將str新增到數組裡面之前，我們先檢查，把數組裡面已有的數字中與將要新增的str相同的數字刪掉，這樣便保證了陣列arr中沒有重數，這裡又要用到for迴圈:
-              for(j=0;j<arr.length;j++){
-                      if(arr[j]==str){
-                          arr.splice(j,1);//刪除陣列中從索引為j的數字開始的1位數，因為這裡只刪一個數字，所以其實就是把從索引為j的數字給刪除了，而這個索引為j的數字正是那個和str相同的數字。
-                          x--;
-                      }
-                  }
-              arr.push(str);
+          var arr=[['1','夏天','summer'],['2','春天','spring'],['3','冬天','winter']];
+          var rows4 = arr.map( row => ({ 
+              eng : row[2],
+              chinese: row[1]
+            }));
+
+          console.log(rows4)
+          var quiz = document.getElementById("quiz");
+          quiz.innerText = rows4[0].chinese
+          
+          //   debugger;
+          var answer = document.getElementById("question-answer");
+          
+          answer.innerHTML="";
+          for(i=0;i <= rows4.length ; i++){
+            answer.innerHTML += `<div><li>${rows4[i].eng}</li></div>`
           }
-          question.innerHTML = `
-              <div id="question">
-                <label>${questions}的英文是?</label>
-                <div class="question-answer">
-                  <div>
-                    <input type="radio" value="autumn" id="radio_${arr[0]}" name="race"/>
-                    <label for="radio_${arr[0]}" class="radio"><span>autumn </span></label>
-                  </div>
-                  <div>
-                    <input  type="radio" value="summer" id="radio_${arr[1]}" name="race"/>
-                    <label for="radio_${arr[1]}" class="radio"><span>summer</span></label>
-                  </div>
-                  <div>
-                      <input  type="radio" value="none" id="radio_${arr[2]}" name="race"/>
-                      <label for="radio_${arr[2]}" class="radio"><span>winter</span></label>
-                  </div>
-                  <div>
-                      <input  type="radio" value="none" id="radio_${arr[3]}" name="race"/>
-                      <label for="radio_${arr[3]}" class="radio"><span>spring</span></label>
-                  </div>
-                </div>
-              </div>`;
         }
+        
+          // if ('addEventListener' in window) {
+          // 	window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
+          // 	document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+          // }
+          // 以下亂數
+          // for(x=1;x<= 4;x++){
+          //     str = Math.round( (Math.random()*3) + 1);
+          //     //在將str新增到數組裡面之前，我們先檢查，把數組裡面已有的數字中與將要新增的str相同的數字刪掉，這樣便保證了陣列arr中沒有重數，這裡又要用到for迴圈:
+          //     for(j=0;j<arr.length;j++){
+          //             if(arr[j]==str){
+          //                 arr.splice(j,1);//刪除陣列中從索引為j的數字開始的1位數，因為這裡只刪一個數字，所以其實就是把從索引為j的數字給刪除了，而這個索引為j的數字正是那個和str相同的數字。
+          //                 x--;
+          //             }
+          //         }
+          //     arr.push(str);
+          // } 以上亂數
     </script>
+    <!-- <script src="main.js"></script> -->
+    
 
   </body>
 </html>
