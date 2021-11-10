@@ -262,7 +262,7 @@
               document.getElementById("item").innerHTML = "";
               temp("冬天")
             }else if(i == 2){
-              temp("夏天1")
+              temp("夏天")
             }else{
               alert(`測驗通過完成! 總分:${i}分`)
               location.reload();
@@ -271,30 +271,48 @@
 
         function temp(questions){
           var question = document.getElementById("question")
+          var str='';
+          var arr=[];
+          for(x=1;x<= 4;x++){
+              str = Math.round( (Math.random()*3) + 1);
+              //在將str新增到數組裡面之前，我們先檢查，把數組裡面已有的數字中與將要新增的str相同的數字刪掉，這樣便保證了陣列arr中沒有重數，這裡又要用到for迴圈:
+              for(j=0;j<arr.length;j++){
+                      if(arr[j]==str){
+                          arr.splice(j,1);//刪除陣列中從索引為j的數字開始的1位數，因為這裡只刪一個數字，所以其實就是把從索引為j的數字給刪除了，而這個索引為j的數字正是那個和str相同的數字。
+                          x--;
+                      }
+                  }
+              arr.push(str);
+          }
+
+          console.log(arr);
           question.innerHTML = `
               <div id="question">
                 <label>${questions}的英文是?</label>
                 <div class="question-answer">
                   <div>
-                    <input type="radio" value="autumn" id="radio_3" name="race"/>
-                    <label for="radio_3" class="radio"><span>autumn </span></label>
+                    <input type="radio" value="autumn" id="radio_${arr[0]}" name="race"/>
+                    <label for="radio_${arr[0]}" class="radio"><span>autumn </span></label>
                   </div>
                   <div>
-                    <input  type="radio" value="summer" id="radio_4" name="race"/>
-                    <label for="radio_4" class="radio"><span>summer</span></label>
+                    <input  type="radio" value="summer" id="radio_${arr[1]}" name="race"/>
+                    <label for="radio_${arr[1]}" class="radio"><span>summer</span></label>
                   </div>
                   <div>
-                      <input  type="radio" value="none" id="radio_5" name="race"/>
-                      <label for="radio_5" class="radio"><span>winter</span></label>
+                      <input  type="radio" value="none" id="radio_${arr[2]}" name="race"/>
+                      <label for="radio_${arr[2]}" class="radio"><span>winter</span></label>
                   </div>
                   <div>
-                      <input  type="radio" value="none" id="radio_6" name="race"/>
-                      <label for="radio_6" class="radio"><span>spring</span></label>
+                      <input  type="radio" value="none" id="radio_${arr[3]}" name="race"/>
+                      <label for="radio_${arr[3]}" class="radio"><span>spring</span></label>
                   </div>
                 </div>
               </div>`;
         }
 
+        function getRandom(x){
+            return Math.floor(Math.random()*x)+1;
+        };
 
         
     </script>
