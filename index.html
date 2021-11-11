@@ -223,10 +223,10 @@
           }
         }
         const pop = new alert2();
-        
-        var stutes = 0
+      
         let i = 0;
 
+        //按下送出後 比對是否為第一次 因為預設#item_query會是空的 如果他是空 代表第一次
         $("#btn").click(x => {
             if($("#name").val() == ""){
                 alert("尚未填入資料")
@@ -235,28 +235,27 @@
                 if ($('#radio_' + i).is(":checked"))
                 {
                     pop.yes();
+                    clear();
+                    i = temp();
+                    console.log(i)
                 }else{
                     pop.no();
                 }
               }else{
                 i = temp();
+                console.log(i)
               }
             }
         });
 
-        // function next(i){
-        //     console.log(i);
-        //     if(i == 1){
-        //       document.getElementById("item").innerHTML = "";
-        //       temp("冬天")
-        //     }else if(i == 2){
-        //       temp("夏天")
-        //     }else{
-        //       alert(`測驗通過完成! 總分:${i}分`)
-        //       location.reload();
-        //     }
-        // }
-        
+        //清除元素
+        function clear(){
+          for(i=0;i <= 4; i++){
+            $('#item_query').remove();
+          }
+        }
+
+        //出題地方
         function temp(){
           var question = document.getElementById("question")
           var str='';
@@ -268,8 +267,7 @@
             }));
 
           console.log(rows4)
-          var quiz = document.getElementById("quiz");
-          quiz.innerText = rows4[0].chinese
+          
           
           //   debugger;
           var answer = document.getElementById("question-answer");
@@ -283,13 +281,11 @@
             </div>
             `
           }
-          return rows4[0].num;
+          str = Math.round( (Math.random()*3));
+          var quiz = document.getElementById("quiz");
+          quiz.innerText = rows4[str].chinese
+          return rows4[str].num;
         }
-
-
-        
-        
-      
           // if ('addEventListener' in window) {
           // 	window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
           // 	document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
