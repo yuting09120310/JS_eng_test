@@ -21,6 +21,9 @@
       line-height: 22px;
       }
 
+      #quiz{
+        text-align: center;
+      }
       .testbox {
       display: flex;
       justify-content: center;
@@ -110,6 +113,7 @@
       display: inline-block;
       margin: 5px 20px 15px 0;
       cursor: pointer;
+      font-size: 20px;
       }
       #question span {
       margin-left: 30px;
@@ -180,6 +184,7 @@
       }
 
 
+
     </style>
   </head>
   <body>
@@ -191,7 +196,7 @@
           <input id="name" type="text" name="name" placeholder="請填入姓名" required/>
         </div>
         <div id="question">
-          <label id="quiz"></label>
+          <h2 id="quiz"></h2>
           <div id="question-answer">
 
           </div>
@@ -283,7 +288,7 @@
           }
           str = Math.round( (Math.random()*3));
           var quiz = document.getElementById("quiz");
-          quiz.innerText = rows4[str].chinese
+          quiz.innerText = rows4[str].chinese + "的英文是?"
           return rows4[str].num;
         }
           // if ('addEventListener' in window) {
