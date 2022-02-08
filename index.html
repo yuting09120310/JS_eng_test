@@ -231,14 +231,20 @@
       
         let i = 0;
 
-        //按下送出後 比對是否為第一次 因為預設#item_query會是空的 如果他是空 代表第一次
+        //按下送出後 
         $("#btn").click(x => {
+            //如果name 是空白就報錯
             if($("#name").val() == ""){
                 alert("尚未填入資料")
             }else{
-              if($('#item_query').length > 0){
+              //如果是選項是空白的 就做以下先生成i(執行temp)
+              if($('#item_query').length == 0){
+                i = temp();
+                console.log(i)
+              }else{
                 if ($('#radio_' + i).is(":checked"))
                 {
+                  //答對後跳出正確視窗 並把選項清除 重新生成i(選項)
                     pop.yes();
                     clear();
                     i = temp();
@@ -246,9 +252,6 @@
                 }else{
                     pop.no();
                 }
-              }else{
-                i = temp();
-                console.log(i)
               }
             }
         });
@@ -257,8 +260,11 @@
         function clear(){
           for(i=0;i <= 4; i++){
             $('#item_query').remove();
+            $('#quiz').text = "";
           }
         }
+        //出過的題目
+        var repeat_num = [];
 
         //出題地方
         function temp(){
@@ -287,9 +293,20 @@
             `
           }
           str = Math.round( (Math.random()*3));
-          var quiz = document.getElementById("quiz");
-          quiz.innerText = rows4[str].chinese + "的英文是?"
-          return rows4[str].num;
+          while(repeat_num.includes(str) & repeat_num.length != rows4.length){
+            str = Math.round( (Math.random()*3))
+          }
+          if(repeat_num.length != rows4.length){
+            repeat_num.push(str)
+            console.log(repeat_num)
+            var quiz = document.getElementById("quiz");
+            quiz.innerText = rows4[str].chinese + "的英文是?"
+            return rows4[str].num;
+          }else{
+            $('#question-answer').remove();
+            $('#btn').remove();
+            $('#quiz').text("通關!");
+          }
         }
           // if ('addEventListener' in window) {
           // 	window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
